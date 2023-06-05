@@ -1,9 +1,12 @@
 Coding Questions
 
-Move Zeroes
-Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+(Move Zeroes)
+Q. Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
 Note that you must do this in-place without making a copy of the array
+
+=> Solution:
+
 
 def movesZeroes(nums, n):
 	count = 0
@@ -21,5 +24,16 @@ movesZeroes(nums,n)
 print(nums)
 
 
+(First Unique Character in a String)
+Q.  Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+   
+=> Solution:
+  
+  
+def firstUniqueCharacter(s):
+	for c in s:
+		if s.index(c) == s.rindex(c):
+        		return s.index(c)
 
-
+s = "loveleetcode"
+print(firstUniqueCharacter(s))
