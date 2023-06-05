@@ -1,0 +1,25 @@
+Coding Questions
+
+Move Zeroes
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Note that you must do this in-place without making a copy of the array
+
+def movesZeroes(nums, n):
+	count = 0
+	for i in range(n):
+		if nums[i] != 0 :
+			nums[count] = nums[i]
+			count += 1
+	while count < n:
+		nums[count] = 0
+		count += 1
+
+nums = [0,1,0,3,12]
+n = len(nums)
+movesZeroes(nums,n)
+print(nums)
+
+
+
+
