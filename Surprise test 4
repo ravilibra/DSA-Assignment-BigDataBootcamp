@@ -1,0 +1,67 @@
+
+1.  Write a PySpark code to read a CSV file named "employees.csv" containing the following columns: "employee_id", "name", "age", "department". Display the top 10 records from the DataFrame.
+
+ANS->  df1 = Spark.read.option("header", True).option("inferSchema", True).csv("/employees.csv")
+       df1 = df1.select("employee_id", "name", "age", "department").show(10)
+
+
+2.  Given a PySpark DataFrame named "sales_data" with columns "product_name" and "revenue", write a code to calculate the total revenue for each product and display the result in
+   descending order.
+
+ANS->  Total_revenue = sales_data.groupBy ("product_name").agg(sum("revenue").alias("total_revenue"));
+       Total_revenue = Total_revenue.orderBy(col("total_revenue").desc());
+
+
+3.  Write a PySpark code to read a JSON file named "students.json" containing student records with the following schema: "name" (string), "age" (integer), "grade" (string).
+    Filter the DataFrame to include only students whose age is greater than 18.
+
+ANS->   df = spark.read.json("students.json");
+        filtered_df = df.filter(df.age > 18).show();
+
+
+4.   Consider a PySpark DataFrame named "transactions" with columns "transaction_id", "user_id", and "amount". Write a code to calculate the average transaction amount for each user
+     and display the result.
+
+ANS->   average_amount_df = transactions.groupBy("user_id").agg(avg("amount").alias("average_amount")).show();
+
+
+5.   Given a PySpark DataFrame named "logs" with columns "timestamp" (timestamp) and "event" (string), write a code to count the number of events that occurred in each hour and display
+     the result sorted by the hour.
+
+ANS->   logs = logs.withColumn("hour", hour(logs.timestamp).cast(IntegerType()));
+        event_count_df = logs.groupBy("hour").count().orderBy("hour").show();
+
+
+6.  Retrieve all the customers from the "Customers" table whose age is greater than 25 and have made at least one purchase.
+
+ANS->  SELECT * FROM Customers
+       WHERE age > 25 AND customer_id IN
+                                  (SELECT customer_id FROM Purchases);
+
+
+7.  Find the total number of orders placed by each customer and display the results in descending order of the number of orders.
+
+ANS->  SELECT customer_id, COUNT(order_id) AS order_count
+       FROM Orders
+       GROUP BY customer_id
+       ORDER BY order_count DESC;
+
+
+8.  Retrieve the names of all products that are currently out of stock from the "Products" table.
+
+ANS->  SELECT name
+       FROM Products
+       WHERE stock_quantity = 0;
+
+
+9.  Calculate the average price of all products in each category and display the results along with the category name.
+
+ANS->  SELECT category_name, avg(product_price) as avg_product_price
+       FROM Products;
+
+10.  Retrieve the top 5 customers who have spent the highest total amount on purchases.
+
+ANS->  SELECT DISTINCT customers_id, SUM(amount) AS total_spent
+       FROM Customers
+       GROUP BY customer_id
+       ORDER BY total_spent DESC limit 5;
